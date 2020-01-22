@@ -1,1 +1,6 @@
 <p>product-detail works!</p>
+<div class="card" *ngIf="productDetail">
+    <div class="card-header">
+        {{ pageTitle + ': '+ productDetail.productName }}
+    </div>
+</div>

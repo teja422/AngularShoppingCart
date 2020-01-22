@@ -3,10 +3,8 @@ import { IProduct } from './product';
 import { ProductService } from './product.service';
 
 @Component({
-    selector: 'sc-products',
     templateUrl: './products.component.html',
-    styleUrls: ['./products.component.css'],
-    providers: [ProductService]
+    styleUrls: ['./products.component.css']
 })
 export class ProductListComponent implements OnInit {
     pageTitle: string = 'Product List';
@@ -15,6 +13,7 @@ export class ProductListComponent implements OnInit {
     showImage: boolean = false;
 
     _listFilter: string;
+    errorMessage: string;
     get listFilter(): string {
         return this._listFilter;
     }
@@ -48,9 +47,13 @@ export class ProductListComponent implements OnInit {
 
     ngOnInit(): void {
         console.log("In OnInit");
-        this.products = this.productService.getProducts();
-        this.filteredProducts = this.products;
-        this.listFilter = 'Cart';
+        this.productService.getProducts().subscribe({
+            next: products => {
+                this.products = products,
+                this.filteredProducts = this.products
+            },
+            error: err => this.errorMessage = err
+        });
     }
 
 }
