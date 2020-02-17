@@ -3,7 +3,7 @@
 <div class="container">
     <h3>Angular 2+ Forms:</h3>
 
-    <form (ngSubmit)="onSubmit()" #form="ngForm" novalidate>
+    <form (ngSubmit)="submitEmployeeForm(form)" #form="ngForm" novalidate>
         <div class="form-group">
             <label class="control-label" for="firstName">First name:</label>
             <input #firstName="ngModel" type="text" name="firstName" id="firstName" class="form-control" [class.is-invalid]="firstName.invalid && firstName.touched" placeholder="First name" required [ngModel]='model.firstName' (ngModelChange)='firstNameToUppercase($event)'>

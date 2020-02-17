@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Employee } from '../model/employee.model';
+import { NgForm } from '@angular/forms';
+import { FormPoster } from '../service/form.service';
 
 @Component({
   selector: 'app-welcome',
@@ -10,6 +12,13 @@ export class WelcomeComponent implements OnInit {
   languages: string[] = [];
   model = new Employee('Praveen', 'Kumar', true, 'w2', 'default');
   hasPrimaryLanguageError = false;
+
+  constructor(private formPoster: FormPoster) { }
+
+  ngOnInit() {
+
+    this.languages = ['English', 'Swedish', 'Other'];
+  }
 
   firstNameToUppercase(value: string): void {
     this.model.firstName = this.stringToUppercase(value);
@@ -37,16 +46,10 @@ export class WelcomeComponent implements OnInit {
     }
   }
 
-
-
-
-
-
-  constructor() { }
-
-  ngOnInit() {
-
-    this.languages = ['English', 'Swedish', 'Other'];
+  submitEmployeeForm(form: NgForm) {
+    this.validatePrimaryLanguage(this.model.primaryLanguage);
+    if (this.hasPrimaryLanguageError) return;
+    this.formPoster.postEmployeeForm(this.model);
   }
-
+  
 }
