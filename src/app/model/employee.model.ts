@@ -1,11 +1,8 @@
-export class Employee {
-    constructor(
-        public firstName: string,
-        public lastName: string,
-        public isFullTime: boolean,
-        public paymentType: string,
-        public primaryLanguage: string
-    ) {
+export interface Employee {
+    firstName: string,
+    lastName: string,
+    isFullTime: boolean,
+    paymentType: string,
+    primaryLanguage: string
 
-    }
 }

@@ -52,6 +52,9 @@
             <input type="date" class="form-control" name="DateHired" id="DateHired" placeholder="">
         </div> -->
 
+        <div class="alert alert-danger" role="alert" [hidden]='!postError'>
+            <strong>{{postErrorMessage}}</strong>
+        </div>
         <button type="submit" class="btn btn-primary" [disabled]="form.invalid">Ok</button>
     </form>
 </div>

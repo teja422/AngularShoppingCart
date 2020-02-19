@@ -10,8 +10,16 @@ import { FormPoster } from '../service/form.service';
 })
 export class WelcomeComponent implements OnInit {
   languages: string[] = [];
-  model = new Employee('Praveen', 'Kumar', true, 'w2', 'default');
+  model: Employee = {
+    firstName: 'Praveen',
+    lastName: 'Kumar',
+    isFullTime: true,
+    paymentType: 'w2',
+    primaryLanguage: 'default'
+  };
   hasPrimaryLanguageError = false;
+  postError: boolean = false;
+  postErrorMessage: string = '';
 
   constructor(private formPoster: FormPoster) { }
 
@@ -49,7 +57,18 @@ export class WelcomeComponent implements OnInit {
   submitEmployeeForm(form: NgForm) {
     this.validatePrimaryLanguage(this.model.primaryLanguage);
     if (this.hasPrimaryLanguageError) return;
-    this.formPoster.postEmployeeForm(this.model);
+    this.formPoster.postEmployeeForm(this.model)
+      .subscribe(
+        data => console.log('data: ', data),
+        err => this.httpErrorResponse(err)
+      );
+
   }
   
+  httpErrorResponse(errorResponse: any): void {
+    console.log(errorResponse);    
+    this.postError = true;
+    this.postErrorMessage = errorResponse.error.errorMessage;
+  }
+
 }
